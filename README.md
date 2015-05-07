@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/johnson-yeap/simple_ga.svg?branch=master)](https://travis-ci.org/johnson-yeap/simple_ga)
+
 # SimpleGa
 
 TODO: Write a gem description
