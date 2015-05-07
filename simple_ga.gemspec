@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = SimpleGa::VERSION
   spec.authors       = ["Johnson Yeap"]
   spec.email         = ["johnson.runningbus@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{Simple GA Gem}
+  spec.description   = %q{This is a simple genetic algorithm gem}
   spec.homepage      = ""
   spec.license       = "MIT"
 
