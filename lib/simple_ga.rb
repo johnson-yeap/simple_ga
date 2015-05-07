@@ -4,7 +4,6 @@
 # Url::       http://pointa.herokuapp.com/
 
 require "simple_ga/version"
-require "simple_ga/hello"
 
 module SimpleGa
   # The GeneticAlgorithm module implements the GeneticSearch and Chromosome 

@@ -6,7 +6,9 @@
 # 	end
 # end
 
-describe Hello do 
+require "simple_ga"
+
+describe Chromosome do 
 	context "first test" do
 		it "is a test" do
 			@hello = Hello.new
@@ -14,3 +16,12 @@ describe Hello do
 		end
 	end
 end
+
+# describe Chromosome do 
+# 	context "when a new chromosome is create" do
+# 		it "has a length of an even number" do
+# 			chromosome = Chromosome.seed
+# 			expect(chromosome.data.length % 2).to eql(0)
+# 		end
+# 	end
+# end
