@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/johnson-yeap/simple_ga.svg?branch=master)](https://travis-ci.org/johnson-yeap/simple_ga)
 
+[![Coverage Status](https://coveralls.io/repos/johnson-yeap/simple_ga/badge.svg?branch=master)](https://coveralls.io/r/johnson-yeap/simple_ga?branch=master)
+
 # SimpleGa
 
 TODO: Write a gem description
