@@ -3,7 +3,7 @@
 # Project::   Academic Planner - Pointa
 # Url::       http://pointa.herokuapp.com/
 
-require "simple_ga/version"
+require 'simple_ga/version'
 
 module SimpleGa
   # The GeneticAlgorithm module implements the GeneticSearch and Chromosome 
