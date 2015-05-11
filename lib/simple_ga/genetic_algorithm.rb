@@ -50,11 +50,11 @@ module SimpleGa
       def uniquify(search_space)
         unique_search_space = search_space.uniq
         # Turns every unselected courses data into nil
-        unique_search_space.each do |c|
-          0.step(c.data.length-1, 2) do |index|         # Odd index
-            if c[index] == 0
-              c[index] = nil
-              c[index+1] = nil
+        unique_search_space.each do |s|
+          0.step(s.length-1, 2) do |index|         # Odd index
+            if s[index] == 0
+              s[index] = nil
+              s[index+1] = nil
             end
           end
         end
