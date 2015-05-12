@@ -24,6 +24,7 @@ module SimpleGa
     class GeneticSearch
 
       attr_accessor :population
+      attr_accessor :unique_solutions
 
       def initialize(initial_population_size, generations)
         @population_size = initial_population_size
