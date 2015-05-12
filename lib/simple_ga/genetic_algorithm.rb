@@ -43,7 +43,7 @@ module SimpleGa
           offsprings = reproduction selected_to_breed	 
           replace_worst_ranked offsprings
         end
-        unique_solutions = uniquify search_space
+        @unique_solutions = uniquify search_space
         
         return best_chromosome
       end
