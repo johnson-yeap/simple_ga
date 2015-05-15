@@ -24,7 +24,6 @@ module SimpleGa
     class GeneticSearch
 
       attr_accessor :population
-      attr_accessor :unique_solutions
 
       def initialize(initial_population_size, generations)
         @population_size = initial_population_size
@@ -33,33 +32,40 @@ module SimpleGa
       end
 
       def run
-        generate_initial_population       		                    
-        search_space = []   					# All possible solutions to the problem.                            
+        generate_initial_population                    #Generate initial population 
+        elite_chromosomes = []                         #All possible solutions to the problem 
         @max_generation.times do
-          selected_to_breed = selection     	# Evaluates current population.           
+          selected_to_breed = selection                #Evaluates current population
+          
           selected_to_breed.each do |chromosome|
-            search_space << chromosome.data.dup
+            elite_chromosomes << chromosome
           end
-          offsprings = reproduction selected_to_breed	 
+          
+          offsprings = reproduction selected_to_breed  #Generate the population for this new generation
           replace_worst_ranked offsprings
         end
-        @unique_solutions = uniquify search_space
-        
-        return best_chromosome
+        unique_chromosomes = uniquify elite_chromosomes
+        return unique_chromosomes
       end
 
-      def uniquify(search_space)
-        unique_search_space = search_space.uniq
-        # Turns every unselected courses data into nil
-        unique_search_space.each do |s|
-          0.step(s.length-1, 2) do |index|         # Odd index
-            if s[index] == 0
-              s[index] = nil
-              s[index+1] = nil
-            end
+      # elite_chromosomes is an array of chromosomes.
+      def uniquify(elite_chromosomes)
+        search_space = []
+        unique_solutions = []
+        elite_chromosomes.each do |chromosome|
+          search_space << chromosome.data
+        end
+        # Turns every unselected courses data into 0
+        search_space.each do |solution|
+          0.step(solution.length-1, 2) do |index|         #Odd index
+            solution[index+1] = 0 if solution[index] == 0
           end
         end
-        unique_solutions = unique_search_space.uniq
+        unique_search_space = search_space.uniq
+
+        unique_search_space.each do |solution|
+          unique_solutions = Chromosome.new(solution)
+        end
 
         return unique_solutions
       end
@@ -191,9 +197,9 @@ module SimpleGa
         return @fitness if @fitness
 
         # Current state inputs to be retrieved from the database.
-        credits = [2,3,3,3,5,2,4,4,4,4,3]
-        old_gpa = 58 
-        old_total_credits = 16
+        @@credits = [2,3,3,3,5,2,4,4,4,4,3]
+        @@old_gpa = 58 
+        @@old_total_credits = 16
         min_credits = 16
         max_credits = 20
         target_cgpa ||= 3.7
@@ -205,8 +211,8 @@ module SimpleGa
           grades << @data[j+1]
         end
 
-        total_credits = ([courses, credits].transpose.map {|x| x.inject(:*)}).inject{|sum,x| sum + x }
-        new_total_credits = old_total_credits + total_credits
+        total_credits = ([courses, @@credits].transpose.map {|x| x.inject(:*)}).inject{|sum,x| sum + x }
+        new_total_credits = @@old_total_credits + total_credits
 
         grades.each do |grade|
           case grade
@@ -227,8 +233,8 @@ module SimpleGa
           end
         end
 
-        gpa = (([credits, courses, points].transpose.map {|x| x.inject(:*)}).inject{|sum,x| sum + x }).round(2)
-        new_gpa = old_gpa + gpa
+        gpa = (([@@credits, courses, points].transpose.map {|x| x.inject(:*)}).inject{|sum,x| sum + x }).round(2)
+        new_gpa = @@old_gpa + gpa
         cgpa = (new_gpa/new_total_credits).round(2)
 
         # Core constraints.
@@ -250,6 +256,11 @@ module SimpleGa
             @fitness = 0
         end
         return @fitness
+      end
+
+      # The evolution value
+      def improved_fitness
+        return @fitness - @@old_cgpa
       end
         
       # Mutation method is used to maintain genetic diversity from one 
@@ -346,14 +357,28 @@ module SimpleGa
 
       def self.seed
         # Current state inputs to be retrieved from the database.
-        ncourse = 11
+        # ncourse = 11
         seed = []
 
-        1.step(ncourse*2, 2) do |j|
+        1.step(@@ncourse*2, 2) do |j|
           seed << rand(2)
           seed << (1 + rand(6))
         end
         return Chromosome.new(seed)
+      end
+
+      # available_courses is an array of arrays containing a list of available courses 
+      # with the course information 
+      # e.g. [[<course_name>, <course_ch], [<course_name>, <course_ch]]
+      def self.set_params(available_courses, current_gpa, acum_ch)
+        @@credits = []
+        @@old_gpa = current_gpa
+        @@old_total_credits = acum_ch
+        @@old_cgpa = @@old_gpa/@@old_total_credits
+        @@ncourse = available_courses.length
+        available_courses.each do |course_info|
+          @@credits << course_info[1]
+        end
       end
     end # end/Chromosome
   end # end/GeneticAlgorithm
