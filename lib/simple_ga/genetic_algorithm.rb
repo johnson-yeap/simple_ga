@@ -170,6 +170,16 @@ module SimpleGa
         @data = data
       end
 
+      def num_of_selected_genes
+        count = 0
+        data.each_with_index do |gene, index|
+          if index % 2 == 0 && gene == 1
+            count += 1
+          end
+        end
+        return count
+      end
+
       # The fitness method quantifies the optimality of a solution 
       # (that is, a chromosome) in a genetic algorithm so that that particular 
       # chromosome may be ranked against all the other chromosomes. 
