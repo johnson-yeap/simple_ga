@@ -45,6 +45,7 @@ module SimpleGa
           replace_worst_ranked offsprings
         end
         unique_chromosomes = uniquify elite_chromosomes
+
         return unique_chromosomes
       end
 
@@ -230,6 +231,8 @@ module SimpleGa
               points << 2.30
             when 7
               points << 2.00
+            else 
+              points << 0.00
           end
         end
 
