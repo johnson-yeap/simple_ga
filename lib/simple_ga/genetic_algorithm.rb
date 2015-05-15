@@ -197,9 +197,9 @@ module SimpleGa
         return @fitness if @fitness
 
         # Current state inputs to be retrieved from the database.
-        @@credits = [2,3,3,3,5,2,4,4,4,4,3]
-        @@old_gpa = 58 
-        @@old_total_credits = 16
+        # @@credits = [2,3,3,3,5,2,4,4,4,4,3]
+        # @@old_gpa = 58 
+        # @@old_total_credits = 16
         min_credits = 16
         max_credits = 20
         target_cgpa ||= 3.7
