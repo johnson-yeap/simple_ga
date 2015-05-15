@@ -64,7 +64,7 @@ module SimpleGa
         unique_search_space = search_space.uniq
 
         unique_search_space.each do |solution|
-          unique_solutions = Chromosome.new(solution)
+          unique_solutions << Chromosome.new(solution)
         end
 
         return unique_solutions
