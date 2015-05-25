@@ -243,7 +243,7 @@ module SimpleGa
         # Core constraints.
         # Elites own a high fitness value.
         # The higher the fitness value, the higher the chance of being selected. 
-        if total_credits <= max_credits && total_credits >= min_credits && cgpa >= target_cgpa
+        if total_credits <= max_credits && total_credits >= min_credits
             @fitness = cgpa
         # This chromosome doesn't satisfy the important constraints 
         # e.g. within the range of min_credits and max_credits
@@ -363,10 +363,19 @@ module SimpleGa
         # ncourse = 11
         seed = []
 
-        1.step(@@ncourse*2, 2) do |j|
-          seed << rand(2)
-          seed << (1 + rand(6))
+        max_credits = 20
+        if @@total_credits > max_credits
+          1.step(@@ncourse*2, 2) do |j|
+            seed << rand(2)
+            seed << (1 + rand(6))
+          end
+        else
+          1.step(@@ncourse*2, 2) do |j|
+            seed << 1
+            seed << (1 + rand(6))
+          end
         end
+
         return Chromosome.new(seed)
       end
 
@@ -382,6 +391,7 @@ module SimpleGa
         available_courses.each do |course_info|
           @@credits << course_info[1]
         end
+        @@total_credits = @@credits.inject(0, :+)
       end
     end # end/Chromosome
   end # end/GeneticAlgorithm
