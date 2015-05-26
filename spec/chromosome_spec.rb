@@ -1,5 +1,5 @@
 describe SimpleGa::GeneticAlgorithm::Chromosome do 	
-	available_courses = [["Ethnic Relations",2],["Principles of Information Systems",3],["Computer Systems & Organization",3],["Computing Mathematics I",3],["Programming I",5],["Islamic And Asian Civilization",2],["Operating Systems",4],["Human Computer Interaction",4],["Software Project Management",4],["Programming for Web Engineering",4],["Software Requirements Engineering",3]]
+	available_courses = [["Ethnic Relations",2],["Principles of Information Systems",3],["Computer Systems & Organization",3],["Computing Mathematics I",3],["Programming I",5],["Islamic And Asian Civilization",2],["Operating Systems",4],["Human Computer Interaction",4],["Software Project Management",4],["Programming for Web Engineering",4],["Advance Programming",3]]
 	SimpleGa::GeneticAlgorithm::Chromosome.set_params(available_courses, 58, 16)
 
 	subject { SimpleGa::GeneticAlgorithm::Chromosome.seed }
